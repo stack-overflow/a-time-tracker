@@ -24,7 +24,7 @@ gem 'sdoc', '~> 0.4.0',          group: :doc
 gem 'rspec-rails', '~> 3.0'
 gem 'pg', '~> 0.17'
 
-gem 'simplecov'
+gem 'simplecov', require: false
 
 gem 'devise', '~> 3.2'
 gem 'bootstrap-sass', '~> 3.2.0'
