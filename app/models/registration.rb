@@ -1,7 +1,5 @@
 class Registration
   include ActiveModel::Model
-  #include ActiveModel::Conversion
-  #include ActiveModel::Validations
 
   attr_reader :user
   attr_reader :account
@@ -11,19 +9,44 @@ class Registration
   attr_accessor :company
   attr_accessor :email
   attr_accessor :password
+  attr_accessor :terms_of_service
 
   validates :first_name, :last_name, :company, :email, :password, presence: true
+  validates :terms_of_service, acceptance: true
 
   def save
-    @user = User.create(
-    	first_name: first_name, 
-    	last_name: last_name,
-    	email: email,
-    	password: password)
+  	if valid?
+    	@user = User.new(
+    		first_name: first_name, 
+    		last_name: last_name,
+    		email: email,
+    		password: password)
 
-    @account = Account.create(company: company)
-    ua = UserAccount.create(user: @user, account: @account)
+    	@account = Account.new(company: company)
 
+    	delegate_errors_for_user
+    	delegate_errors_for_account
+
+    	if !errors.any?
+    		ua = UserAccount.new(user: @user, account: @account)
+    		@user.save
+    		@account.save
+    		ua.save
+    	else
+    		false
+    	end
+  	end
+  end
+
+  def delegate_errors_for_user
+    errors.add(:first_name, @user.errors[:first_name].first) if @user.errors[:first_name].present?
+    errors.add(:last_name, @user.errors[:last_name].first) if @user.errors[:last_name].present?
+    errors.add(:email, @user.errors[:email].first) if @user.errors[:email].present?
+    errors.add(:password, @user.errors[:password].first) if @user.errors[:password].present?
+  end
+
+  def delegate_errors_for_account
+    errors.add(:company, @account.errors[:company].first) if @account.errors[:company].present?
   end
 
 end
