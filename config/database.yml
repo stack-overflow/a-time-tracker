@@ -2,7 +2,7 @@ development:
   adapter: postgresql
   host: localhost
   encoding: unicode
-  database: hacklab_episode_1_development
+  database: a_time_tracker_development
   pool: 5
   username: postgres
   password: postgres
@@ -12,7 +12,7 @@ test:
   adapter: postgresql
   host: localhost
   encoding: unicode
-  database: hacklab_episode_1_test
+  database: a_time_tracker_test
   pool: 5
   username: postgres
   password: postgres
