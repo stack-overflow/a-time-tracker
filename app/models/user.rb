@@ -1,7 +1,7 @@
 class User < ActiveRecord::Base
 	has_many :user_accounts
 	has_many :accounts, through: :user_accounts
-	
+
   validates :email, format: { with: /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i }, 
                     uniqueness: { case_sensitive: false }
 

@@ -9,9 +9,10 @@ class Registration
   attr_accessor :company
   attr_accessor :email
   attr_accessor :password
+  attr_accessor :name
   attr_accessor :terms_of_service
 
-  validates :first_name, :last_name, :company, :email, :password, presence: true
+  validates :first_name, :last_name, :company, :email, :name, :password, presence: true
   validates :terms_of_service, acceptance: true
 
   def save
@@ -22,7 +23,7 @@ class Registration
     		email: email,
     		password: password)
 
-    	@account = Account.new(company: company)
+    	@account = Account.new(company: company, name: name)
 
     	delegate_errors_for_user
     	delegate_errors_for_account
