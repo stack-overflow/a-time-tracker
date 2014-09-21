@@ -11,7 +11,8 @@ class RegistrationsController < Devise::RegistrationsController
       @user = @registration.user
       set_flash_message :notice, :signed_up
       sign_up(resource_name, @user)
-      respond_with @user, location: after_sign_up_path_for(@user)
+      # respond_with @user, location: after_sign_up_path_for(@user)
+      redirect_to edit_user_registration_path(@user)
     else
       render :new
     end
