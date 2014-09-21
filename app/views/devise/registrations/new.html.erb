@@ -26,6 +26,11 @@
     <%= f.password_field :password, autocomplete: "off" %></div>
 
   <div>
+    <%= f.label :password_confirmation %>
+    <%= f.password_field :password_confirmation, autocomplete: "off" %></div>
+  </div>
+
+  <div>
     <%= f.label 'Terms of Service' %>
     <%= f.check_box :terms_of_service %>
   </div>
